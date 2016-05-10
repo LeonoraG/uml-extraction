@@ -1,29 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <feature
-      id="eu.scasefp7.eclipse.umlrec.feature"
-      label="UML recognizer"
+      id="eu.scasefp7.eclipse.umlrec.papyrus.feature"
+      label="UML recognizer Papyrus model support"
       version="1.0.0.qualifier"
       provider-name="S-CASE Consortium"
       plugin="eu.scasefp7.eclipse.umlrec">
 
    <description url="https://github.com/s-case/uml-extraction">
-      Frontend to UML recognizer module presented as an Eclipse import wizard. Image files of type JPG, JPEG2000, PNG and BMP are supported. Activity and use case diagrams can be detected. Result is stored in an XMI file and can be automatically opened in an associated editor.
+      Optional module for exporting to papyrus.
+Converts the XMI file to a papyrus diagram.
    </description>
 
    <copyright url="http://www.scasefp7.eu/copyright">
       Copyright 2015 S-CASE Consortium
-   
-      Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
-      you may not use this file except in compliance with the License.
-      You may obtain a copy of the License at
-
-       http://www.apache.org/licenses/LICENSE-2.0
-
-     Unless required by applicable law or agreed to in writing, software
-     distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
-     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-     See the License for the specific language governing permissions and
-     limitations under the License.
+Licensed under the Apache License, Version 2.0 (the &quot;License&quot;);
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+http://www.apache.org/licenses/LICENSE-2.0
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express
+or implied.
+See the License for the specific language governing permissions
+and
+limitations under the License.
    </copyright>
 
    <license url="http://www.scasefp7.eu/licenses/">
@@ -205,18 +205,8 @@
    END OF TERMS AND CONDITIONS
    </license>
 
-   <url>
-      <update label="S-CASE update site" url="http://s-case.github.io/s-case_update_site/"/>
-   </url>
-
-   <includes
-         id="eu.scasefp7.eclipse.umlrec.papyrus.feature"
-         version="0.0.0"
-         name="UML recognizer Papyrus model support"
-         optional="true"/>
-
    <plugin
-         id="eu.scasefp7.eclipse.umlrec"
+         id="eu.scasefp7.eclipse.umlrec.papyrus"
          download-size="0"
          install-size="0"
          version="0.0.0"/>
