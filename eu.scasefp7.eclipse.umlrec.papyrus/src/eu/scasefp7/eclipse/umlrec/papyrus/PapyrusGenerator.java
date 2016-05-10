@@ -36,16 +36,15 @@ import org.w3c.dom.Node;
 import org.xml.sax.SAXException;
 
 import eu.scasefp7.eclipse.umlrec.papyrus.modelmanagers.AbstractPapyrusModelManager;
-import eu.scasefp7.eclipse.umlrec.papyrus.modelmanagers.DefaultPapyrusModelManager;
+import eu.scasefp7.eclipse.umlrec.ui.parser.ActivityParser;
+import eu.scasefp7.eclipse.umlrec.ui.parser.UseCaseParser;
+import eu.scasefp7.eclipse.umlrec.ui.parser.XMIActivityNode;
+import eu.scasefp7.eclipse.umlrec.ui.parser.XMIEdge;
+import eu.scasefp7.eclipse.umlrec.ui.parser.XMIUseCaseNode;
 import eu.scasefp7.eclipse.umlrec.papyrus.preferences.PreferencesManager;
 import eu.scasefp7.eclipse.umlrec.papyrus.utils.EditorUtils;
 import eu.scasefp7.eclipse.umlrec.papyrus.utils.FileUtils;
 import eu.scasefp7.eclipse.umlrec.papyrus.utils.ProjectUtils;
-import eu.scasefp7.eclipse.umlrec.parser.ActivityParser;
-import eu.scasefp7.eclipse.umlrec.parser.UseCaseParser;
-import eu.scasefp7.eclipse.umlrec.parser.XMIActivityNode;
-import eu.scasefp7.eclipse.umlrec.parser.XMIEdge;
-import eu.scasefp7.eclipse.umlrec.parser.XMIUseCaseNode;
 
 /**
  * @author tsirelis
@@ -70,18 +69,12 @@ public class PapyrusGenerator {
     // Constructors
     // ===========================================================
 	
-	/**
-	 * The constructor (DefaultPapyrusModelManager is used)
-	 * @param sourceUML
-	 */
-	public PapyrusGenerator(IFile sourceUML) {
-	    this(sourceUML, DefaultPapyrusModelManager.class);
-	}
+
 	    
+	
 	/**
 	 * The constructor
 	 * @param sourceUML - The Eclipse UML2 model 
-	 * @param manager - Papyrus model manager
 	 */
 	public PapyrusGenerator(IFile sourceUML, Class<? extends AbstractPapyrusModelManager> manager) {
 		this.projectName = sourceUML.getProject().getName();
@@ -91,7 +84,9 @@ public class PapyrusGenerator {
 		this.makeSourceUMLPapyrusCompliant();
 		SettingsRegistry.setPapyrusModelManager(manager);
 	}
-	
+
+	    
+
 	// ===========================================================
     // Private Methods
     // ===========================================================
@@ -358,9 +353,14 @@ public class PapyrusGenerator {
 			DOMSource source = new DOMSource(doc);
 			
 			String sourceUMLFolder = new Path(new Path(sourceUMLPath).toFile().getParent().toString()).toString();
-			String newModelName = modelName +"_model";
+			
+			//this uml file will be deleted during the process of generation
+			String newModelName = modelName +"_modeltemp";
+			
 			String newSourceUMLPath = sourceUMLFolder + "/" + newModelName +".uml";
-			File f = new File(newSourceUMLPath.replace("file:", ""));
+			File f = new File(newSourceUMLPath.replace("file:/", ""));  
+
+
 			StreamResult result = new StreamResult(f);
 			transformer.setOutputProperty(OutputKeys.INDENT, "yes");
 			transformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "2");
@@ -460,7 +460,8 @@ public class PapyrusGenerator {
 	 */
 	private void createAndOpenPapyrusModel(IProgressMonitor monitor) throws ModelMultiException, ServiceException {
 		monitor.beginTask("Generating Papyrus Model", 100);
-		PapyrusModelCreator papyrusModelCreator = new PapyrusModelCreator(projectName + "/" + modelName);
+		//we want the model name without the "temp" ending
+		PapyrusModelCreator papyrusModelCreator = new PapyrusModelCreator(projectName + "/" + modelName.substring(0, modelName.length()-4));
 		papyrusModelCreator.setUpUML(sourceUMLPath);
 		if(!papyrusModelCreator.diExists()){
 			
@@ -612,7 +613,8 @@ public class PapyrusGenerator {
 		SettingsRegistry.clear();
 		
 		monitor.subTask("Cleaning up");
-		FileUtils.deleteFile(java.nio.file.Paths.get(sourceUMLPath.replace("file:", "")));
+		//TODO 
+		FileUtils.deleteFile(java.nio.file.Paths.get(sourceUMLPath.replace("file:/", "")));
 		monitor.worked(100);
 		
 		return Status.OK_STATUS;

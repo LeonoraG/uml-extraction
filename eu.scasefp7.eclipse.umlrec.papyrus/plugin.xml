@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?eclipse version="3.4"?>
 <plugin>
-   
+   <!--
    <extension point="org.eclipse.ui.commands">
       <category id="eu.scasefp7.eclipse.umlrec.commands.category" name="SCaseUMLExtractor Commands Category"/>
-      <command categoryId="eu.scasefp7.eclipse.umlrec.commands.category" id="eu.scasefp7.eclipse.umlrec.commands.convertToPapyrus" name="Convert to Papyrus diagrams"/>
+      <command
+            categoryId="eu.scasefp7.eclipse.umlrec.commands.category"
+            id="eu.scasefp7.eclipse.umlrec.commands.convertToPapyrus"
+            name="Convert to Papyrus diagrams">
+         <commandParameter
+               id="filePath"
+               name="path"
+               optional="true">
+         </commandParameter>
+      </command>
    </extension>
-
+-->
    <extension point="org.eclipse.ui.handlers">
       <handler class="eu.scasefp7.eclipse.umlrec.papyrus.handlers.ConvertToPapyrusHandler" commandId="eu.scasefp7.eclipse.umlrec.commands.convertToPapyrus">
-      	<enabledWhen>
+      	<!--<enabledWhen>
    			<with variable="selection">
     			<iterate ifEmpty="false">
      				<adapt type="org.eclipse.core.resources.IResource">
@@ -17,9 +26,10 @@
         			</adapt>
     			</iterate>
            </with>
-      	</enabledWhen>
+      	</enabledWhen>-->
       </handler>
    </extension>
+   <!--
    <extension point="org.eclipse.ui.menus">
       <menuContribution locationURI="popup:org.eclipse.ui.popup.any">
             <command commandId="eu.scasefp7.eclipse.umlrec.commands.convertToPapyrus" id="eu.scasefp7.eclipse.umlrec.menus.convertToPapyrus">
@@ -35,5 +45,5 @@
             </command>
       </menuContribution>
    </extension>
-
+-->
 </plugin>

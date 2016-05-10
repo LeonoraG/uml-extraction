@@ -2,7 +2,6 @@ package eu.scasefp7.eclipse.umlrec.papyrus;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import org.eclipse.core.resources.IFile;
@@ -149,7 +148,7 @@ public class PapyrusModelCreator {
 			FileInputStream is2 = new FileInputStream(oldFile);
 			newFile.create(null, true, null);
 			newFile.setContents(is2, true, false, new NullProgressMonitor());
-		}catch(CoreException | FileNotFoundException e){
+		}catch(CoreException | IOException e){
 			throw new RuntimeException(e);
 		}
 	}
